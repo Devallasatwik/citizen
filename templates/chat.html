@@ -1,0 +1,28 @@
+<!-- templates/chat.html -->
+{% extends 'base.html' %}
+{% block title %}AI Chat Assistant{% endblock %}
+{% block content %}
+<h2 class="mb-4">Real-Time AI Assistant</h2>
+<div class="card chat-window">
+    <div class="card-body chat-box" id="chat-box">
+        {% for message in history %}
+            <div class="message {{ message.sender }}">
+                <div class="bubble">{{ message.text | safe }}</div>
+            </div>
+        {% else %}
+            <p class="text-muted text-center">No messages yet. Start chatting!</p>
+        {% endfor %}
+    </div>
+    <div class="card-footer">
+        <form method="POST" class="d-flex">
+            <input type="text" name="message" class="form-control" placeholder="Ask something..." required autocomplete="off">
+            <button type="submit" class="btn btn-primary ms-2">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+</script>
+{% endblock %}

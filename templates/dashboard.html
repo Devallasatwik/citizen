@@ -1,0 +1,46 @@
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+{% block title %}Analytics Dashboard{% endblock %}
+{% block content %}
+<h2 class="mb-4">Citizen Sentiment Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card bg-info text-white text-center mb-3">
+            <div class="card-header">Total Feedback Entries</div>
+            <div class="card-body">
+                <h1 class="card-title">{{ total_feedback }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card mb-3">
+            <div class="card-header">Sentiment Analysis</div>
+            <div class="card-body">
+                {% if sentiment_chart %}
+                    {{ sentiment_chart | safe }}
+                {% else %}
+                    <p class="text-muted">No sentiment data yet.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">Recent Concerns (Negative Feedback)</div>
+    <div class="card-body">
+        {% if recent_concerns %}
+        <ul class="list-group">
+            {% for concern in recent_concerns %}
+            <li class="list-group-item">
+                <strong>{{ concern.username }}:</strong> "{{ concern.text }}"
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-muted">No recent negative feedback. Great!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
